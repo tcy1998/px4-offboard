@@ -1,64 +1,59 @@
-# px4-offboard
-This `repository` contains a python examples for offboard control on ROS2 with [PX4](https://px4.io/)
-
-The `px4_offboard` package contains the following nodes
-- `offboard_control.py`: Example of offboard position control using position setpoints
-- `visualizer.py`: Used for visualizing vehicle states in Rviz
-
-The source code is released under a BSD 3-Clause license.
-
-- **Author**: Jaeyoung Lim
-- **Affiliation**: Autonomous Systems Lab, ETH Zurich
-
-## Setup
-Add the repository to the ros2 workspace
+# px4-offboard-accleration and CBF implementation
+This a project based on Jaeyoung Lim project
 ```
 git clone https://github.com/Jaeyoung-Lim/px4-offboard.git
 ```
 
+The `px4_offboard` package contains the following nodes
+- `offboard_control.py`: Example of offboard position control using position setpoints
+- `visualizer.py`: Used for visualizing vehicle states in Rviz
+- `offboard_acc_ctrl_version1.py`: New python code for accleration control with CBF
+
+The source code is released under a BSD 3-Clause license.
+
+- **Author**: Chuyuan Tao
+- **Affiliation**: ACRL, University of Illinois, at Urbana and Champaign
+
+## Setup
+It is based on WSL or Ubuntu System.
+
 If you are running this on a companion computer to PX4, you will need to build the package on the companion computer directly. 
+
+More to Add.
 
 ## Running
 
 ### Software in the Loop
-You will make use of 3 different terminals to run the offboard demo.
+You will make use of 4 different terminals to run the offboard demo.
 
 On the first terminal, run a SITL instance from the PX4 Autopilot firmware.
 ```
-make px4_sitl gazebo
+cd PX4-Autopilot
+make px4_sitl gz_x500
 ```
 
 On the second terminal terminal, run the micro-ros-agent which will perform the mapping between Micro XRCE-DDS and RTPS. So that ROS2 Nodes are able to communicate with the PX4 micrortps_client.
 ```
-micro-ros-agent udp4 --port 8888
+cd Micro-XRCE-DDS-Agent
+MicroXRCEAgent udp4 -p 8888
 ```
 
-In order to run the offboard position control example, open a third terminal and run the the node.
+Open the third terminal, open the QGround Control app.
+```
+./QGroundControl.AppImage
+```
+
+In order to run the offboard position control example, open a forth terminal and run the the node.
 This runs two ros nodes, which publishes offboard position control setpoints and the visualizer.
 ```
-ros2 launch px4_offboard offboard_position_control.launch.py
+cd px4-offboard
+source install/setup.bash
+ros2 launch px4_offboard offboard_accleration_control.launch.py
 ```
-![offboard](https://user-images.githubusercontent.com/5248102/194742116-64b93fcb-ec99-478d-9f4f-f32f7f06e9fd.gif)
-
-In order to just run the visualizer,
+Make changes on the python code, need to build before running the launch.py
 ```
-ros2 launch px4_offboard visualize.launch.py
-```
-### Hardware
-
-This section is intended for running the offboard control node on a companion computer, such as a Raspberry Pi or Nvidia Jetson/Xavier. You will either need an SSH connection to run this node, or have a shell script to run the nodes on start up. 
-
-If you are running this through a UART connection into the USB port, start the micro-ros agent with the following command
-
-```
-micro-ros-agent serial --dev /dev/ttyUSB0 -b 921600 -v
-```
-If you are using a UART connection which goes into the pinouts on the board, start the micro-ros agent with the following comand
-```
-micro-ros-agent serial --dev /dev/ttyTHS1 -b 921600 -V
+colcon build
+source install/setup.bash
+ros2 launch px4_offboard offboard_accleration_control.launch.py
 ```
 
-To run the offboard position control example, run the node on the companion computer
-```
-ros2 launch px4_offboard offboard_hardware_position_control.launch.py
-```

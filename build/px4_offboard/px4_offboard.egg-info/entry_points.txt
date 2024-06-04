@@ -1,0 +1,5 @@
+[console_scripts]
+offboard_acc_ctrl_version1 = px4_offboard.offboard_acc_ctrl_version1:main
+offboard_control = px4_offboard.offboard_control:main
+visualizer = px4_offboard.visualizer:main
+

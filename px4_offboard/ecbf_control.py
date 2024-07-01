@@ -10,6 +10,10 @@ import rclpy.logging
 a = 0.5
 b = 0.5
 safety_dist = np.power(1, 4)
+
+a = 0.25
+b = 0.25
+safety_dist = np.power(0.5, 4)
 class SimpleDynamics():
     def __init__(self):
         ## State space

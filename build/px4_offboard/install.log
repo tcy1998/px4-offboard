@@ -6,6 +6,7 @@
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/offboard_control.py
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/controller.py
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/resilient_esti.py
+/home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/offboard_acc_ctrl_version1_no_self_vel.py
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/__init__.py
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/visualizer.py
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/offboard_acc_ctrl_version1.py
@@ -17,6 +18,7 @@
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/__pycache__/offboard_control.cpython-310.pyc
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/__pycache__/controller.cpython-310.pyc
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/__pycache__/resilient_esti.cpython-310.pyc
+/home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/__pycache__/offboard_acc_ctrl_version1_no_self_vel.cpython-310.pyc
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/__pycache__/__init__.cpython-310.pyc
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/__pycache__/visualizer.cpython-310.pyc
 /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/__pycache__/offboard_acc_ctrl_version1.cpython-310.pyc

@@ -48,15 +48,17 @@ class Offboard_acc_ctrl(Node):
         
         self.publisher_offboard_mode = self.create_publisher(OffboardControlMode, '/fmu/in/offboard_control_mode', qos_profile)
         self.publisher_trajectory = self.create_publisher(TrajectorySetpoint, '/fmu/in/trajectory_setpoint', qos_profile)
-        timer_period = 0.02  # seconds
-        self.timer = self.create_timer(timer_period, self.cmdloop_callback)
+        self.timer_period = 0.02  # seconds
+        self.timer = self.create_timer(self.timer_period, self.cmdloop_callback)
         self.nav_state = VehicleStatus.NAVIGATION_STATE_MAX
         self.arming_state = VehicleStatus.ARMING_STATE_DISARMED
         self.vehicle_pos = np.array([0.0, 0.0, 0.0])
         self.vehicle_vel = np.array([0.0, 0.0, 0.0])
+        self.send_vel = np.array([0.0, 0.0, 0.0])
         self.time_epi = 0
         self.takeoff = True
         self.control = False
+        self.old_state = np.array([0.0, 0.0, 0.0])
         # Note: no parameter callbacks are used to prevent sudden inflight changes of radii and omega 
         # which would result in large discontinuities in setpoints
 
@@ -99,6 +101,11 @@ class Offboard_acc_ctrl(Node):
         
 
         return u_hat_acc
+    
+    def cal_vel(self, state):
+        xdot = (state - self.old_state) / self.timer_period
+        self.old_state = state
+        return xdot
 
     def cmdloop_callback(self):
         # Publish offboard control modes
@@ -111,12 +118,12 @@ class Offboard_acc_ctrl(Node):
         self.publisher_offboard_mode.publish(offboard_msg)
 
         ## Initialize robot start position in ENU
-        state1 = {"x": np.array([-1.5, -2.5, 2.0]),
+        state1 = {"x": np.array([-1.0, -1.0, 1.5]),
                 "xdot": np.zeros(3,),
                 "theta": np.radians(np.array([0, 0, 0])),  
                 "thetadot": np.radians(np.array([0, 0, 0]))  
                 }
-        goal1 = np.array([[1.5], [2.5]])
+        goal1 = np.array([[1.5], [1.5]])
         
         ecbf1 = ECBF_control(state1, goal1)
 
@@ -133,6 +140,8 @@ class Offboard_acc_ctrl(Node):
                     trajectory_msg.position[0] = start_pos[0]
                     trajectory_msg.position[1] = start_pos[1]
                     trajectory_msg.position[2] = start_pos[2]
+                    trajectory_msg.yaw = 0.0
+
                     self.publisher_trajectory.publish(trajectory_msg)
                 else:
                     self.takeoff = False
@@ -142,7 +151,8 @@ class Offboard_acc_ctrl(Node):
 
             if self.control:
                 state1['x'] = self.vehicle_pos
-                state1['xdot'] = self.vehicle_vel
+                # state1['xdot'] = self.vehicle_vel
+                state1['xdot'] = self.cal_vel(state1['x'])
                 offboard_msg.position = False
                 offboard_msg.velocity = False
                 offboard_msg.acceleration = True
@@ -155,16 +165,25 @@ class Offboard_acc_ctrl(Node):
                     # rclpy.logging.get_logger('px4_offboard').info("Robot 1 acceleration: %s" % u_hat_acc1)
                     self.time_epi += 1
 
+                    self.send_vel[0] = self.vehicle_vel[0] + u_hat_acc1[0] * self.timer_period
+                    self.send_vel[1] = self.vehicle_vel[1] + u_hat_acc1[1] * self.timer_period
+                    self.send_vel[2] = self.vehicle_vel[2] + u_hat_acc1[2] * self.timer_period
+
 
                     trajectory_msg = TrajectorySetpoint()
 
                     trajectory_msg.position[0] = "NaN"
                     trajectory_msg.position[1] = "NaN"
-                    trajectory_msg.position[2] = -2.0
+                    trajectory_msg.position[2] = -1.5
 
                     trajectory_msg.velocity[0] = "NaN"
                     trajectory_msg.velocity[1] = "NaN"
                     trajectory_msg.velocity[2] = "NaN"
+
+                    # trajectory_msg.velocity[0] = self.send_vel[0]   # velocity
+                    # trajectory_msg.velocity[1] = self.send_vel[1]
+                    # trajectory_msg.velocity[2] = self.send_vel[2]
+
 
                     trajectory_msg.acceleration[0] = u_hat_acc1[0]
                     trajectory_msg.acceleration[1] = u_hat_acc1[1]
@@ -186,8 +205,8 @@ class Offboard_acc_ctrl(Node):
                 offboard_msg.acceleration = False
                 self.publisher_offboard_mode.publish(offboard_msg)
                 trajectory_msg = TrajectorySetpoint()
-                trajectory_msg.position[0] = 0.0
-                trajectory_msg.position[1] = 0.0
+                trajectory_msg.position[0] = goal1[0][0]
+                trajectory_msg.position[1] = goal1[1][0]
                 trajectory_msg.position[2] = -0.0
                 self.publisher_trajectory.publish(trajectory_msg)
                 # rclpy.logging.get_logger('px4_offboard').info("Landing")

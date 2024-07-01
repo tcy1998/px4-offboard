@@ -1,0 +1,30 @@
+[0.590s] Invoking command in '/home/chuyuan2/px4-offboard': PYTHONPATH=/home/chuyuan2/px4-offboard/build/px4_offboard/prefix_override:/home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/px4_offboard build --build-base /home/chuyuan2/px4-offboard/build/px4_offboard/build install --record /home/chuyuan2/px4-offboard/build/px4_offboard/install.log --single-version-externally-managed install_data
+[0.759s] running egg_info
+[0.759s] writing build/px4_offboard/px4_offboard.egg-info/PKG-INFO
+[0.760s] writing dependency_links to build/px4_offboard/px4_offboard.egg-info/dependency_links.txt
+[0.760s] writing entry points to build/px4_offboard/px4_offboard.egg-info/entry_points.txt
+[0.760s] writing requirements to build/px4_offboard/px4_offboard.egg-info/requires.txt
+[0.760s] writing top-level names to build/px4_offboard/px4_offboard.egg-info/top_level.txt
+[0.761s] reading manifest file 'build/px4_offboard/px4_offboard.egg-info/SOURCES.txt'
+[0.761s] adding license file 'LICENSE'
+[0.762s] writing manifest file 'build/px4_offboard/px4_offboard.egg-info/SOURCES.txt'
+[0.762s] running build
+[0.762s] running build_py
+[0.763s] copying px4_offboard/offboard_acc_ctrl_version1_no_self_vel.py -> /home/chuyuan2/px4-offboard/build/px4_offboard/build/lib/px4_offboard
+[0.763s] copying px4_offboard/offboard_acc_ctrl_version1.py -> /home/chuyuan2/px4-offboard/build/px4_offboard/build/lib/px4_offboard
+[0.763s] running install
+[0.764s] running install_lib
+[0.764s] copying /home/chuyuan2/px4-offboard/build/px4_offboard/build/lib/px4_offboard/offboard_acc_ctrl_version1_no_self_vel.py -> /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard
+[0.764s] copying /home/chuyuan2/px4-offboard/build/px4_offboard/build/lib/px4_offboard/offboard_acc_ctrl_version1.py -> /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard
+[0.766s] byte-compiling /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/offboard_acc_ctrl_version1_no_self_vel.py to offboard_acc_ctrl_version1_no_self_vel.cpython-310.pyc
+[0.767s] byte-compiling /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard/offboard_acc_ctrl_version1.py to offboard_acc_ctrl_version1.cpython-310.pyc
+[0.769s] running install_data
+[0.769s] running install_egg_info
+[0.770s] removing '/home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard-0.0.0-py3.10.egg-info' (and everything under it)
+[0.771s] Copying build/px4_offboard/px4_offboard.egg-info to /home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages/px4_offboard-0.0.0-py3.10.egg-info
+[0.771s] running install_scripts
+[0.790s] Installing offboard_acc_ctrl_version1 script to /home/chuyuan2/px4-offboard/install/px4_offboard/lib/px4_offboard
+[0.790s] Installing offboard_control script to /home/chuyuan2/px4-offboard/install/px4_offboard/lib/px4_offboard
+[0.790s] Installing visualizer script to /home/chuyuan2/px4-offboard/install/px4_offboard/lib/px4_offboard
+[0.790s] writing list of installed files to '/home/chuyuan2/px4-offboard/build/px4_offboard/install.log'
+[0.816s] Invoked command in '/home/chuyuan2/px4-offboard' returned '0': PYTHONPATH=/home/chuyuan2/px4-offboard/build/px4_offboard/prefix_override:/home/chuyuan2/px4-offboard/install/px4_offboard/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/px4_offboard build --build-base /home/chuyuan2/px4-offboard/build/px4_offboard/build install --record /home/chuyuan2/px4-offboard/build/px4_offboard/install.log --single-version-externally-managed install_data

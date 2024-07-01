@@ -22,6 +22,7 @@ px4_offboard/linear_plant.py
 px4_offboard/offboard_acc_ctrl.py
 px4_offboard/offboard_acc_ctrl_version1 copy.py
 px4_offboard/offboard_acc_ctrl_version1.py
+px4_offboard/offboard_acc_ctrl_version1_no_self_vel.py
 px4_offboard/offboard_control.py
 px4_offboard/resilient_esti.py
 px4_offboard/visualizer.py
